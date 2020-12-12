@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane minHeight="500.0" minWidth="690.0" styleClass="bodybg" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml.GreetingController">
+   <children>
+      <ImageView fitHeight="188.0" fitWidth="241.0" layoutX="57.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Helpings/Egypt.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="210.0" fitWidth="278.0" layoutX="345.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Helpings/USA.png" />
+         </image>
+      </ImageView>
+      <JFXComboBox fx:id="agentOneBox" layoutX="57.0" layoutY="273.0" prefHeight="25.0" prefWidth="203.0" promptText="Choose Agent One" />
+      <JFXComboBox fx:id="agentTwoBox" layoutX="383.0" layoutY="273.0" prefHeight="25.0" prefWidth="203.0" promptText="Choose Agent One" styleClass="combo-box" />
+      <JFXButton fx:id="startBtn" layoutX="272.0" layoutY="371.0" onAction="#btnAct" prefHeight="40.0" prefWidth="146.0" style="-fx-background-color: #000000;" text="Start The War" textFill="RED">
+         <font>
+            <Font name="Haettenschweiler" size="22.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>
