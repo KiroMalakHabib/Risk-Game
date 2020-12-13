@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane minHeight="500.0" minWidth="500.0" prefHeight="602.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml.GameUSAController">
+   <children>
+      <BorderPane prefHeight="500.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <center>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fitHeight="469.0" fitWidth="753.0" layoutX="-2.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Helpings/USA.png" />
+                     </image>
+                  </ImageView>
+                  <JFXButton fx:id="state01" alignment="CENTER" contentDisplay="CENTER" layoutX="81.0" layoutY="39.0" onMouseClicked="#stateBtnAction" prefHeight="23.0" prefWidth="23.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #ffffff; -fx-border-color: #000000;" text="52" textAlignment="CENTER">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="state02" alignment="CENTER" contentDisplay="CENTER" layoutX="63.0" layoutY="96.0" onMouseClicked="#stateBtnAction" prefHeight="23.0" prefWidth="23.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #ffffff; -fx-border-color: #000000;" text="52" textAlignment="CENTER">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="state03" alignment="CENTER" contentDisplay="CENTER" layoutX="24.0" layoutY="162.0" onMouseClicked="#stateBtnAction" prefHeight="23.0" prefWidth="23.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #ffffff; -fx-border-color: #000000;" text="52" textAlignment="CENTER">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="state04" alignment="CENTER" contentDisplay="CENTER" layoutX="90.0" layoutY="177.0" onMouseClicked="#stateBtnAction" prefHeight="23.0" prefWidth="23.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #ffffff; -fx-border-color: #000000;" text="52" textAlignment="CENTER">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="state08" alignment="CENTER" contentDisplay="CENTER" layoutX="152.0" layoutY="196.0" onMouseClicked="#stateBtnAction" prefHeight="23.0" prefWidth="23.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #ffffff; -fx-border-color: #000000;" text="52" textAlignment="CENTER">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="state05" alignment="CENTER" contentDisplay="CENTER" layoutX="131.0" layoutY="118.0" onMouseClicked="#stateBtnAction" prefHeight="23.0" prefWidth="23.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #ffffff; -fx-border-color: #000000;" text="52" textAlignment="CENTER">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="state06" alignment="CENTER" contentDisplay="CENTER" layoutX="197.0" layoutY="70.0" onMouseClicked="#stateBtnAction" prefHeight="23.0" prefWidth="23.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #ffffff; -fx-border-color: #000000;" text="52" textAlignment="CENTER">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="state07" alignment="CENTER" contentDisplay="CENTER" layoutX="208.0" layoutY="138.0" onMouseClicked="#stateBtnAction" prefHeight="23.0" prefWidth="23.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #ffffff; -fx-border-color: #000000;" text="52" textAlignment="CENTER">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="state10" alignment="CENTER" contentDisplay="CENTER" layoutX="225.0" layoutY="205.0" onMouseClicked="#stateBtnAction" prefHeight="23.0" prefWidth="23.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #ffffff; -fx-border-color: #000000;" text="52" textAlignment="CENTER">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="state09" alignment="CENTER" contentDisplay="CENTER" layoutX="138.0" layoutY="275.0" onMouseClicked="#stateBtnAction" prefHeight="23.0" prefWidth="23.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #ffffff; -fx-border-color: #000000;" text="52" textAlignment="CENTER">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="state11" alignment="CENTER" contentDisplay="CENTER" layoutX="215.0" layoutY="284.0" onMouseClicked="#stateBtnAction" prefHeight="23.0" prefWidth="23.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #ffffff; -fx-border-color: #000000;" text="52" textAlignment="CENTER">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="state49" alignment="CENTER" contentDisplay="CENTER" layoutX="203.0" layoutY="426.0" onMouseClicked="#stateBtnAction" prefHeight="23.0" prefWidth="23.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #ffffff; -fx-border-color: #000000;" text="52" textAlignment="CENTER">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="state50" alignment="CENTER" contentDisplay="CENTER" layoutX="78.0" layoutY="374.0" onMouseClicked="#stateBtnAction" prefHeight="23.0" prefWidth="23.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #ffffff; -fx-border-color: #000000;" text="52" textAlignment="CENTER">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="state12" alignment="CENTER" contentDisplay="CENTER" layoutX="306.0" layoutY="335.0" onMouseClicked="#stateBtnAction" prefHeight="23.0" prefWidth="23.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #ffffff; -fx-border-color: #000000;" text="52" textAlignment="CENTER">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="state13" alignment="CENTER" contentDisplay="CENTER" layoutX="327.0" layoutY="274.0" onMouseClicked="#stateBtnAction" prefHeight="23.0" prefWidth="23.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #ffffff; -fx-border-color: #000000;" text="52" textAlignment="CENTER">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="state14" alignment="CENTER" contentDisplay="CENTER" layoutX="318.0" layoutY="223.0" onMouseClicked="#stateBtnAction" prefHeight="23.0" prefWidth="23.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #ffffff; -fx-border-color: #000000;" text="52" textAlignment="CENTER">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="state15" alignment="CENTER" contentDisplay="CENTER" layoutX="302.0" layoutY="174.0" onMouseClicked="#stateBtnAction" prefHeight="23.0" prefWidth="23.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #ffffff; -fx-border-color: #000000;" text="52" textAlignment="CENTER">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="state16" alignment="CENTER" contentDisplay="CENTER" layoutX="296.0" layoutY="121.0" onMouseClicked="#stateBtnAction" prefHeight="23.0" prefWidth="23.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #ffffff; -fx-border-color: #000000;" text="52" textAlignment="CENTER">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="state17" alignment="CENTER" contentDisplay="CENTER" layoutX="298.0" layoutY="73.0" onMouseClicked="#stateBtnAction" prefHeight="23.0" prefWidth="23.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #ffffff; -fx-border-color: #000000;" text="52" textAlignment="CENTER">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="state18" alignment="CENTER" contentDisplay="CENTER" layoutX="369.0" layoutY="83.0" onMouseClicked="#stateBtnAction" prefHeight="23.0" prefWidth="23.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #ffffff; -fx-border-color: #000000;" text="52" textAlignment="CENTER">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="state19" alignment="CENTER" contentDisplay="CENTER" layoutX="379.0" layoutY="163.0" onMouseClicked="#stateBtnAction" prefHeight="23.0" prefWidth="23.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #ffffff; -fx-border-color: #000000;" text="52" textAlignment="CENTER">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="state20" alignment="CENTER" contentDisplay="CENTER" layoutX="394.0" layoutY="224.0" onMouseClicked="#stateBtnAction" prefHeight="23.0" prefWidth="23.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #ffffff; -fx-border-color: #000000;" text="52" textAlignment="CENTER">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="state21" alignment="CENTER" contentDisplay="CENTER" layoutX="400.0" layoutY="286.0" onMouseClicked="#stateBtnAction" prefHeight="23.0" prefWidth="23.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #ffffff; -fx-border-color: #000000;" text="52" textAlignment="CENTER">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="state22" alignment="CENTER" contentDisplay="CENTER" layoutX="400.0" layoutY="345.0" onMouseClicked="#stateBtnAction" prefHeight="23.0" prefWidth="23.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #ffffff; -fx-border-color: #000000;" text="52" textAlignment="CENTER">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="state23" alignment="CENTER" contentDisplay="CENTER" layoutX="441.0" layoutY="319.0" onMouseClicked="#stateBtnAction" prefHeight="23.0" prefWidth="23.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #ffffff; -fx-border-color: #000000;" text="52" textAlignment="CENTER">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="state24" alignment="CENTER" contentDisplay="CENTER" layoutX="480.0" layoutY="315.0" onMouseClicked="#stateBtnAction" prefHeight="23.0" prefWidth="23.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #ffffff; -fx-border-color: #000000;" text="52" textAlignment="CENTER">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="state25" alignment="CENTER" contentDisplay="CENTER" layoutX="568.0" layoutY="392.0" onMouseClicked="#stateBtnAction" prefHeight="23.0" prefWidth="23.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #ffffff; -fx-border-color: #000000;" text="52" textAlignment="CENTER">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="state26" alignment="CENTER" contentDisplay="CENTER" layoutX="529.0" layoutY="313.0" onMouseClicked="#stateBtnAction" prefHeight="23.0" prefWidth="23.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #ffffff; -fx-border-color: #000000;" text="52" textAlignment="CENTER">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="state34" alignment="CENTER" contentDisplay="CENTER" layoutX="424.0" layoutY="125.0" onMouseClicked="#stateBtnAction" prefHeight="23.0" prefWidth="23.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #ffffff; -fx-border-color: #000000;" text="52" textAlignment="CENTER">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="state36" alignment="CENTER" contentDisplay="CENTER" layoutX="482.0" layoutY="128.0" onMouseClicked="#stateBtnAction" prefHeight="23.0" prefWidth="23.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #ffffff; -fx-border-color: #000000;" text="52" textAlignment="CENTER">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="state33" alignment="CENTER" contentDisplay="CENTER" layoutX="436.0" layoutY="189.0" onMouseClicked="#stateBtnAction" prefHeight="23.0" prefWidth="23.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #ffffff; -fx-border-color: #000000;" text="52" textAlignment="CENTER">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="state35" alignment="CENTER" contentDisplay="CENTER" layoutX="476.0" layoutY="193.0" onMouseClicked="#stateBtnAction" prefHeight="23.0" prefWidth="23.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #ffffff; -fx-border-color: #000000;" text="52" textAlignment="CENTER">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="state37" alignment="CENTER" contentDisplay="CENTER" layoutX="516.0" layoutY="187.0" onMouseClicked="#stateBtnAction" prefHeight="23.0" prefWidth="23.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #ffffff; -fx-border-color: #000000;" text="52" textAlignment="CENTER">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="state32" alignment="CENTER" contentDisplay="CENTER" layoutX="502.0" layoutY="229.0" onMouseClicked="#stateBtnAction" prefHeight="23.0" prefWidth="23.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #ffffff; -fx-border-color: #000000;" text="52" textAlignment="CENTER">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="state31" alignment="CENTER" contentDisplay="CENTER" layoutX="483.0" layoutY="263.0" onMouseClicked="#stateBtnAction" prefHeight="23.0" prefWidth="23.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #ffffff; -fx-border-color: #000000;" text="52" textAlignment="CENTER">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="state27" alignment="CENTER" contentDisplay="CENTER" layoutX="562.0" layoutY="288.0" onMouseClicked="#stateBtnAction" prefHeight="23.0" prefWidth="23.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #ffffff; -fx-border-color: #000000;" text="52" textAlignment="CENTER">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="state28" alignment="CENTER" contentDisplay="CENTER" layoutX="589.0" layoutY="255.0" onMouseClicked="#stateBtnAction" prefHeight="23.0" prefWidth="23.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #ffffff; -fx-border-color: #000000;" text="52" textAlignment="CENTER">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="state29" alignment="CENTER" contentDisplay="CENTER" layoutX="584.0" layoutY="217.0" onMouseClicked="#stateBtnAction" prefHeight="23.0" prefWidth="23.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #ffffff; -fx-border-color: #000000;" text="52" textAlignment="CENTER">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="state30" alignment="CENTER" contentDisplay="CENTER" layoutX="546.0" layoutY="207.0" onMouseClicked="#stateBtnAction" prefHeight="23.0" prefWidth="23.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #ffffff; -fx-border-color: #000000;" text="52" textAlignment="CENTER">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="state38" alignment="CENTER" contentDisplay="CENTER" layoutX="572.0" layoutY="163.0" onMouseClicked="#stateBtnAction" prefHeight="23.0" prefWidth="23.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #ffffff; -fx-border-color: #000000;" text="52" textAlignment="CENTER">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="state39" alignment="CENTER" contentDisplay="CENTER" layoutX="604.0" layoutY="119.0" onMouseClicked="#stateBtnAction" prefHeight="23.0" prefWidth="23.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #ffffff; -fx-border-color: #000000;" text="52" textAlignment="CENTER">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="state42" alignment="CENTER" contentDisplay="CENTER" layoutX="663.0" layoutY="61.0" onMouseClicked="#stateBtnAction" prefHeight="23.0" prefWidth="23.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #ffffff; -fx-border-color: #000000;" text="52" textAlignment="CENTER">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="state40" alignment="CENTER" contentDisplay="CENTER" layoutX="618.0" layoutY="63.0" onMouseClicked="#stateBtnAction" prefHeight="23.0" prefWidth="23.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #ffffff; -fx-border-color: #000000;" text="52" textAlignment="CENTER">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="state41" alignment="CENTER" contentDisplay="CENTER" layoutX="670.0" layoutY="101.0" onMouseClicked="#stateBtnAction" prefHeight="23.0" prefWidth="23.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #ffffff; -fx-border-color: #000000;" text="52" textAlignment="CENTER">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="state43" alignment="CENTER" contentDisplay="CENTER" layoutX="685.0" layoutY="120.0" onMouseClicked="#stateBtnAction" prefHeight="23.0" prefWidth="23.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #ffffff; -fx-border-color: #000000;" text="52" textAlignment="CENTER">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="state44" alignment="CENTER" contentDisplay="CENTER" layoutX="682.0" layoutY="145.0" onMouseClicked="#stateBtnAction" prefHeight="23.0" prefWidth="23.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #ffffff; -fx-border-color: #000000;" text="52" textAlignment="CENTER">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="state46" alignment="CENTER" contentDisplay="CENTER" layoutX="643.0" layoutY="175.0" onMouseClicked="#stateBtnAction" prefHeight="23.0" prefWidth="23.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #ffffff; -fx-border-color: #000000;" text="52" textAlignment="CENTER">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="state45" alignment="CENTER" contentDisplay="CENTER" layoutX="663.0" layoutY="161.0" onMouseClicked="#stateBtnAction" prefHeight="23.0" prefWidth="23.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #ffffff; -fx-border-color: #000000;" text="52" textAlignment="CENTER">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="state47" alignment="CENTER" contentDisplay="CENTER" layoutX="639.0" layoutY="199.0" onMouseClicked="#stateBtnAction" prefHeight="23.0" prefWidth="23.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #ffffff; -fx-border-color: #000000;" text="52" textAlignment="CENTER">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="state48" alignment="CENTER" contentDisplay="CENTER" layoutX="630.0" layoutY="223.0" onMouseClicked="#stateBtnAction" prefHeight="23.0" prefWidth="23.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #ffffff; -fx-border-color: #000000;" text="52" textAlignment="CENTER">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </JFXButton>
+                  <Line endY="23.0" layoutX="639.0" layoutY="82.0" startX="-8.0" startY="4.0" />
+                  <Line endX="30.0" layoutX="641.0" layoutY="113.0" startX="12.0" />
+                  <Line endX="56.0" endY="11.0" layoutX="629.0" layoutY="121.0" startX="31.0" startY="11.0" />
+                  <Line endX="100.0" layoutX="584.0" layoutY="152.0" startX="82.0" startY="-8.0" />
+                  <Line endX="128.0" endY="6.0" layoutX="541.0" layoutY="157.0" startX="112.0" startY="-9.0" />
+                  <Line endX="29.0" endY="12.0" layoutX="617.0" layoutY="167.0" startX="14.0" startY="2.0" />
+                  <Line endX="81.0" endY="14.0" layoutX="558.0" layoutY="193.0" startX="67.0" startY="6.0" />
+                  <Line endX="118.0" endY="59.0" layoutX="516.0" layoutY="168.0" startX="91.0" startY="30.0" />
+               </children>
+            </AnchorPane>
+         </center>
+         <bottom>
+            <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+         </bottom>
+         <top>
+            <AnchorPane prefHeight="91.0" prefWidth="751.0" BorderPane.alignment="CENTER" />
+         </top>
+      </BorderPane>
+   </children>
+</AnchorPane>
