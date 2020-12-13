@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -26,5 +27,15 @@
             <Font name="Haettenschweiler" size="22.0" />
          </font>
       </JFXButton>
+      <Label fx:id="warningLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="54.0" layoutY="223.0" prefHeight="27.0" prefWidth="583.0" text="you should choose a map to start the war." textAlignment="CENTER" textFill="WHITE" visible="false">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="warningLabel1" alignment="CENTER" contentDisplay="CENTER" layoutX="54.0" layoutY="320.0" prefHeight="27.0" prefWidth="583.0" text="Both agents should be selected!" textAlignment="CENTER" textFill="WHITE" visible="false">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
