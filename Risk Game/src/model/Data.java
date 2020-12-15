@@ -5,9 +5,7 @@ import java.util.Arrays;
 
 public class Data {
 
-	public Data() {
-
-	}
+	public Data() {}
 
 	public ArrayList<ArrayList<Integer>> Egypt() {
 		ArrayList<ArrayList<Integer>> egypt = new ArrayList<ArrayList<Integer>>();
