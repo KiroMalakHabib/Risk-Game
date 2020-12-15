@@ -8,6 +8,16 @@ public class Helper {
 	public int calculate_bonus(Player p) {
 		return Math.max(3, p.get_cities().size() / 3);
 	}
+	
+	public int calculate_bonus_minimax(Player p, City[] cities) {
+		int bonus =0;
+		for(int i = 0; i< cities.length;i++) {
+			if(cities[i].get_color().equals(p.get_color())) {
+				bonus++;
+			}
+		}
+		return Math.max(3, bonus/ 3);
+	}
 
 	public boolean test_goal(City[] cities, String color) {
 		for (int i = 0; i < cities.length; i++) {
