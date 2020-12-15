@@ -78,7 +78,7 @@ public class Helper {
 		int armiesOfPlayer2 = 0;
 		for(int i = 0; i < all_cities.length;i++) {
 			City city = all_cities[i];
-			if(city.get_color().equals("Blue")) {
+			if(city.get_color().equals(p1.get_color())) {
 				armiesOfPlayer1 += city.get_armies();
 			}else {
 				armiesOfPlayer2 += city.get_armies();
