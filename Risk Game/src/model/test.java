@@ -1,7 +1,6 @@
 package model;
 
 import model.agents.Agents;
-import model.agents.MinimaxAgent;
 
 public class test {
 
@@ -16,14 +15,18 @@ public class test {
 					//+ " Neighbours: " + c.get_neighbours());
 		}
 		AgentFactory af = new AgentFactory();
-		Agents g1 = af.get_agent("Minimax agent");
-		Agents g2 = af.get_agent("Minimax agent");
+		Agents g2 = af.get_agent("Aggressive agent");
+		Agents g1 = af.get_agent("Aggressive agent");
 		String color_turn = "Blue";
 		String current_color = "Blue";
+		int cost = 0;
 		int quit = 0;
 		boolean attacked1 = false;
 		while (!help.test_goal(cities, current_color)) {
 			attacked1 = false;
+			if(cost > 100) {
+				break;
+			}
 			if (color_turn == "Blue") {
 				g1.placing_armies(cities, g.p1, help.calculate_bonus(g.p1));
 				attacked1 = g1.attack(cities, g.p1, g.p2);
@@ -32,8 +35,8 @@ public class test {
 				} else {
 					quit = 0;
 				}
-				color_turn = "Red";
-				current_color = "Blue";
+				color_turn = g.p2.get_color();
+				current_color = g.p1.get_color();
 			} else {
 				g2.placing_armies(cities, g.p2, help.calculate_bonus(g.p2));
 				attacked1 = g2.attack(cities, g.p2, g.p1);
@@ -42,11 +45,18 @@ public class test {
 				} else {
 					quit = 0;
 				}
-				color_turn = "Blue";
-				current_color = "Red";
+				color_turn = g.p1.get_color();
+				current_color = g.p2.get_color();
 			}
 			if (quit == 4) {
 				break;
+			}
+			cost++;
+			System.out.println("P"+current_color);
+			for (int i = 0; i < cities.length; i++) {
+				City c = cities[i];
+				System.out.println("ID: " + c.get_id() + " Color: " + c.get_color() + " Armies: " + c.get_armies()
+						+ " Neighbours: " + c.get_neighbours());
 			}
 		}
 		if (!help.test_goal(cities, current_color)) {
@@ -59,8 +69,6 @@ public class test {
 			System.out.println("ID: " + c.get_id() + " Color: " + c.get_color() + " Armies: " + c.get_armies()
 					+ " Neighbours: " + c.get_neighbours());
 		}
-		
 	}
-	
 
 }

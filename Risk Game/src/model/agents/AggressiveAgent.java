@@ -7,8 +7,8 @@ import model.Player;
 
 public class AggressiveAgent implements Agents {
 	
-	Helper help = new Helper();
-
+Helper help = new Helper();
+	
 	public void placing_armies(City[] all_cities, Player p, int bonus_armies) {
 		ArrayList<Integer> citiesOfPlayer = p.get_cities();
 		City max_city = new City();
@@ -20,7 +20,7 @@ public class AggressiveAgent implements Agents {
 			}
 		}
 		max_city = check_bestCity(max_armies, all_cities, p);
-		max_city.set_armies(max_armies + bonus_armies);
+		all_cities[max_city.get_id()].set_armies(max_armies + bonus_armies);
 		p.set_armies(p.get_armies() + bonus_armies);
 	}
 
@@ -33,7 +33,7 @@ public class AggressiveAgent implements Agents {
 			city = all_cities[citiesOfPlayer.get(i)];
 			if (!(attacked_cities.contains(city.get_id()))) {
 				ArrayList<Integer> neighbours = city.get_neighbours();
-				City max_city = new City();
+				City max_city = null;
 				int max_armies = 0;
 				for (int j = 0; j < neighbours.size(); j++) {
 					City cityOfNeighbours = new City();
@@ -46,12 +46,14 @@ public class AggressiveAgent implements Agents {
 						}
 					}
 				}
-				if (max_city.get_id() != -1 && !(attacked_cities.contains(max_city.get_id()))) {
+				if (max_city != null && !(attacked_cities.contains(max_city.get_id()))) {
 					int random = help.getRandomInteger(city.get_armies() - 1, max_armies + 1);
 					p2.set_armies(p2.get_armies() - max_armies);
 					p2.get_cities().remove((Integer) max_city.get_id());
 					max_city.set_color(p1.get_color());
 					max_city.set_armies(random);
+					all_cities[max_city.get_id()].set_color(p1.get_color());
+					all_cities[max_city.get_id()].set_armies(random);
 					city.set_armies(city.get_armies() - random);
 					p1.get_cities().add(max_city.get_id());
 					attacked_cities.add(max_city.get_id());
