@@ -24,6 +24,7 @@ public class MinimaxAgent implements Agents{
 			node = minmax(entry.getValue(), p, bonus_armies, -999999, 999999, true,1,  entry);
 			}
 		child_city = node.get_child().getKey();
+		System.out.println("mmmmmm");
 	}
 
 	@Override
