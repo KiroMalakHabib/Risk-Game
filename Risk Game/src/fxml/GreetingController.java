@@ -18,6 +18,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import model.agents.AStarAgent;
+import model.agents.Agents;
+import model.agents.AggressiveAgent;
+import model.agents.GreedyAgent;
+import model.agents.HumanAgent;
+import model.agents.MinimaxAgent;
+import model.agents.PacifistAgent;
+import model.agents.PassiveAgent;
+import model.agents.RTAStarAgent;
 
 public class GreetingController implements Initializable{
     
@@ -60,6 +69,40 @@ public class GreetingController implements Initializable{
 		
 	}
     
+    private Agents defineAgent(String agent) {
+    	Agents theAgent;
+    	switch(agent) {
+    	case "Human agent":
+    		theAgent = new HumanAgent();
+    		break;
+    	case "Passive agent":
+    		theAgent = new PassiveAgent();
+    		break;
+    	case "Aggressive agent":
+    		theAgent = new AggressiveAgent();
+    		break;
+    	case "Pacifist agent":
+    		theAgent = new PacifistAgent();
+    		break;
+    	case "Greedy agent":
+    		theAgent = new GreedyAgent();
+    		break;
+    	case "A* with heuristic":
+    		theAgent = new AStarAgent();
+    		break;
+    	case "Real time A*":
+    		theAgent = new RTAStarAgent();
+    		break;
+    	case "Minimax agent":
+    		theAgent = new MinimaxAgent();
+    		break;
+    	default:
+    		theAgent = new HumanAgent();
+    		break;
+    	}
+    	return theAgent;
+    }
+    
     @FXML
     void btnAct(ActionEvent event) {
     	if (!egyptBool && !usaBool) {
@@ -68,6 +111,8 @@ public class GreetingController implements Initializable{
     	} else if (agentOneBox.getValue() == null || agentTwoBox.getValue() == null) {
     		warningLabel1.setVisible(true);
     	} else {
+    		Agents Agent1 = defineAgent(agentOneBox.getValue());
+    		Agents Agent2 = defineAgent(agentTwoBox.getValue());
     		//open the Game.
 			try {
 				if (egyptBool) {
@@ -77,6 +122,7 @@ public class GreetingController implements Initializable{
 					Scene gameScene = new Scene(gameParent);
 					//access StoreController.
 					GameEgyptController controller = loader.getController();
+					controller.intiateData(Agent1, Agent2);
 					//this line gets the stage information.
 					Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
 					window.setScene(gameScene);
@@ -91,6 +137,7 @@ public class GreetingController implements Initializable{
 					Scene gameScene = new Scene(gameParent);
 					//access StoreController.
 					GameUSAController controller = loader.getController();
+					controller.intiateData(Agent1, Agent2);
 					//this line gets the stage information.
 					Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
 					window.setScene(gameScene);

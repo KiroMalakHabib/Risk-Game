@@ -17,6 +17,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import model.agents.Agents;
 
 public class GameUSAController implements Initializable{
 	ArrayList<JFXButton> myButtons = new ArrayList<JFXButton>();
@@ -237,6 +238,10 @@ public class GameUSAController implements Initializable{
 		myButtons.get(lastBtnClicked-1).setText(String.valueOf(Integer.parseInt(myButtons.get(lastBtnClicked-1).getText())+1));
     }
 
+	public void intiateData(Agents agent1, Agents agent2) {
+		
+	}
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		myButtons.add(state01);
