@@ -17,6 +17,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import model.City;
+import model.Helper;
+import model.Initial_Game;
 import model.agents.Agents;
 
 public class GameUSAController implements Initializable{
@@ -232,6 +235,9 @@ public class GameUSAController implements Initializable{
     }
 	
 	private int lastBtnClicked;
+	private Initial_Game g = new Initial_Game("USA");
+    private Helper help = new Helper();
+    private City[] cities = g.get_allCities();
 	
 	@FXML
     void stateBtnAction(MouseEvent event) {
