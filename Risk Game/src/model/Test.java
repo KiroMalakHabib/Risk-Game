@@ -1,6 +1,7 @@
 package model;
 
 import model.agents.Agents;
+import model.agents.MinimaxAgent;
 
 public class test {
 
@@ -15,8 +16,8 @@ public class test {
 					//+ " Neighbours: " + c.get_neighbours());
 		}
 		AgentFactory af = new AgentFactory();
-		Agents g1 = af.get_agent("Aggressive agent");
-		Agents g2 = af.get_agent("Aggressive agent");
+		Agents g1 = af.get_agent("Minimax agent");
+		Agents g2 = af.get_agent("Minimax agent");
 		String color_turn = "Blue";
 		String current_color = "Blue";
 		int quit = 0;
@@ -58,6 +59,8 @@ public class test {
 			System.out.println("ID: " + c.get_id() + " Color: " + c.get_color() + " Armies: " + c.get_armies()
 					+ " Neighbours: " + c.get_neighbours());
 		}
+		
 	}
+	
 
 }
