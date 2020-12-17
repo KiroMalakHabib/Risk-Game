@@ -160,8 +160,16 @@ public class GameEgyptController implements Initializable{
     	myButtons.get(lastBtnClicked-1).setText(String.valueOf(Integer.parseInt(myButtons.get(lastBtnClicked-1).getText())+1));
     }
     
-    public void intiateData(Agents agent1, Agents agent2) {
-		
+    public void intiateData(Agents agent1, Agents agent2, boolean isHuman) {
+		if (!isHuman) {
+			endTurnBtn.setVisible(false);
+			attackLabel.setVisible(false);
+			attackBtn.setVisible(false);
+			addArmiesBtn.setVisible(false);
+			warningLabel.setVisible(false);
+			avArmiesTxtField.setVisible(false);
+			addArmiesField.setVisible(false);
+		}
 	}
 
 	@Override
