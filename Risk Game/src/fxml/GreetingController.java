@@ -81,6 +81,7 @@ public class GreetingController implements Initializable{
 					Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
 					window.setScene(gameScene);
 					window.setTitle("Conquer Egypt");
+//					window.setResizable(false);
 					window.show();
 				} else {
 					//access StoreController.
@@ -94,6 +95,8 @@ public class GreetingController implements Initializable{
 					Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
 					window.setScene(gameScene);
 					window.setTitle("Conquer USA");
+//					window.setResizable(false);
+					window.show();
 				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

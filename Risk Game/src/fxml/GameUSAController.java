@@ -5,10 +5,18 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 public class GameUSAController implements Initializable{
 	ArrayList<JFXButton> myButtons = new ArrayList<JFXButton>();
@@ -162,6 +170,65 @@ public class GameUSAController implements Initializable{
 	
 	@FXML
     private JFXButton state50;
+	
+	@FXML
+    private JFXButton addArmiesBtn;
+
+    @FXML
+    private JFXTextField enterArmiesTxt;
+
+    @FXML
+    private JFXTextField avaiArmiesTxt;
+
+    @FXML
+    private JFXButton attackBtn;
+
+    @FXML
+    private Label attackLabel;
+
+    @FXML
+    private Label warningLabel;
+
+    @FXML
+    private JFXButton endTurnBtn;
+
+    @FXML
+    private JFXButton exitGameBtn;
+
+    @FXML
+    void addArmiesAct(ActionEvent event) {
+
+    }
+
+    @FXML
+    void attackAct(ActionEvent event) {
+
+    }
+
+    @FXML
+    void endTurnAct(ActionEvent event) {
+
+    }
+
+    @FXML
+    void exitGameAct(ActionEvent event) {
+    	try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("/fxml/Greeting.fxml"));
+			Parent greeting = loader.load();
+			
+			Scene greetingScene = new Scene(greeting);
+			
+			Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+			
+			window.setScene(greetingScene);
+			window.setTitle("Risk Game");
+			window.show();
+			window.setResizable(false);
+		} catch (Exception e) {
+			// Nothing happens.
+		}
+    }
 	
 	private int lastBtnClicked;
 	
