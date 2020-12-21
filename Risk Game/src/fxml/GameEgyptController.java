@@ -200,7 +200,7 @@ public class GameEgyptController implements Initializable{
     				break;
     			}
     			if (color_turn == "Blue") {
-    				agent1.placing_armies(cities, g.getPlayer1(), help.calculate_bonus(g.getPlayer1()));
+    				agent1.placing_armies(cities, g.getPlayer1(), help.calculate_bonus(cities,g.getPlayer1()));
     				attacked1 = agent1.attack(cities, g.getPlayer1(), g.getPlayer2());
     				if (!attacked1) {
     					quit++;
@@ -210,7 +210,7 @@ public class GameEgyptController implements Initializable{
     				color_turn = g.getPlayer2().get_color();
     				current_color = g.getPlayer1().get_color();
     			} else {
-    				agent2.placing_armies(cities, g.getPlayer2(), help.calculate_bonus(g.getPlayer2()));
+    				agent2.placing_armies(cities, g.getPlayer2(), help.calculate_bonus(cities,g.getPlayer2()));
     				attacked1 = agent2.attack(cities, g.getPlayer2(), g.getPlayer1());
     				if (!attacked1) {
     					quit++;

@@ -6,8 +6,8 @@ import model.Helper;
 import model.Player;
 
 public class AggressiveAgent implements Agents {
-	
-Helper help = new Helper();
+
+	Helper help = new Helper();
 	
 	public void placing_armies(City[] all_cities, Player p, int bonus_armies) {
 		ArrayList<Integer> citiesOfPlayer = p.get_cities();
@@ -47,14 +47,18 @@ Helper help = new Helper();
 					}
 				}
 				if (max_city != null && !(attacked_cities.contains(max_city.get_id()))) {
-					int random = help.getRandomInteger(city.get_armies() - 1, max_armies + 1);
+					int maximum = city.get_armies() - max_armies - 1;
+					int minimum = 1;
+					int random = help.getRandomInteger(maximum, minimum);
 					p2.set_armies(p2.get_armies() - max_armies);
 					p2.get_cities().remove((Integer) max_city.get_id());
+					p1.set_armies(p1.get_armies() - max_armies);
 					max_city.set_color(p1.get_color());
 					max_city.set_armies(random);
 					all_cities[max_city.get_id()].set_color(p1.get_color());
 					all_cities[max_city.get_id()].set_armies(random);
-					city.set_armies(city.get_armies() - random);
+					city.set_armies(city.get_armies() - max_armies - random);
+					all_cities[city.get_id()].set_armies(city.get_armies());
 					p1.get_cities().add(max_city.get_id());
 					attacked_cities.add(max_city.get_id());
 					attacked = true;
