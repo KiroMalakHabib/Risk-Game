@@ -10,11 +10,11 @@ public class test {
 		Initial_Game g = new Initial_Game("Egypt");
 		Helper help = new Helper();
 		City[] cities = g.get_allCities();
-		for (int i = 0; i < cities.length; i++) {
-			//City c = cities[i];
-			//System.out.println("ID: " + c.get_id() + " Color: " + c.get_color() + " Armies: " + c.get_armies()
-					//+ " Neighbours: " + c.get_neighbours());
-		}
+//		for (int i = 0; i < cities.length; i++) {
+//			//City c = cities[i];
+//			//System.out.println("ID: " + c.get_id() + " Color: " + c.get_color() + " Armies: " + c.get_armies()
+//					//+ " Neighbours: " + c.get_neighbours());
+//		}
 		AgentFactory af = new AgentFactory();
 		Agents g1 = af.get_agent("Minimax agent");
 		Agents g2 = af.get_agent("Minimax agent");

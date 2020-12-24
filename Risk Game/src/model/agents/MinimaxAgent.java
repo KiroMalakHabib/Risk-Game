@@ -16,12 +16,14 @@ public class MinimaxAgent implements Agents{
 	
 	@Override
 	public void placing_armies(City[] all_cities, Player p, int bonus_armies) {
+	
 		// TODO Auto-generated method stub
 		child_city = new City[all_cities.length];
 		Node_Minimax node = new Node_Minimax();
 		Map<City[], City[]> my_children = help.get_children(all_cities, p, bonus_armies);
 		for (Map.Entry<City[], City[]> entry : my_children.entrySet()) {
-			node = minmax(entry.getValue(), p, bonus_armies, -999999, 999999, true,1,  entry);
+			int new_armies = help.calculate_bonus_minimax(p, entry.getValue());
+			node = minmax(entry.getValue(), p, new_armies, -999999, 999999, true,1,  entry);
 			}
 		child_city = node.get_child().getKey();
 		System.out.println("mmmmmm");
@@ -43,6 +45,7 @@ public class MinimaxAgent implements Agents{
 	
 	private Node_Minimax minmax(City[] all_cities, Player p, int bonus_armies,int alpha,int beta, boolean maxTurn, int depth,Map.Entry<City[], City[]> toReturn) {
 		Node_Minimax node = new Node_Minimax();
+		System.out.println(depth);
 		if (depth == 0 || help.test_goal(all_cities, p.get_color())){
 			int heuristic = help.calculate_heuristsic(all_cities, p);
 			node.set_child(toReturn);
@@ -75,6 +78,7 @@ public class MinimaxAgent implements Agents{
 		}
 		
 		else {
+			System.out.println("min");
 			node.set_heueistic(999999);
 			Map<City[], City[]> next_states = help.get_children(all_cities, p, bonus_armies);
 			
