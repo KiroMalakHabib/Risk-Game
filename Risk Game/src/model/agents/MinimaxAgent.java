@@ -58,7 +58,7 @@ public class MinimaxAgent implements Agents{
 			Map<City[], City[]> next_states = help.get_children(all_cities, p, bonus_armies);
 			
 			for (Map.Entry<City[], City[]> next_state : next_states.entrySet()) {
-				int new_armies = help.calculate_bonus_minimax(p, next_state.getValue());
+				int new_armies = help.calculate_bonus(next_state.getValue(),p);
 				Node_Minimax node_temp = minmax(next_state.getValue(), p, new_armies, alpha, beta, false,depth-1, next_state);
 				
 				if(node_temp.get_heuristic() > node.get_heuristic()) {
@@ -84,7 +84,7 @@ public class MinimaxAgent implements Agents{
 			
 			for (Map.Entry<City[], City[]> next_state : next_states.entrySet()) {
 				
-				int new_armies = help.calculate_bonus_minimax(p, next_state.getValue());
+				int new_armies = help.calculate_bonus(next_state.getValue(),p);
 				Node_Minimax node_temp = minmax(next_state.getValue(), p, new_armies, alpha, beta, true,depth-1, next_state);
 				
 				if(node_temp.get_heuristic() < node.get_heuristic()) {

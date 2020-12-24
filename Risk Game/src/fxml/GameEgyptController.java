@@ -17,6 +17,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import model.City;
+import model.Helper;
+import model.Initial_Game;
+import model.agents.Agents;
+
+
 
 public class GameEgyptController implements Initializable{
 	ArrayList<JFXButton> myButtons = new ArrayList<JFXButton>();
@@ -125,6 +131,9 @@ public class GameEgyptController implements Initializable{
     
     @FXML
     private JFXButton exitGameBtn;
+    
+    @FXML
+    private JFXButton startSimBtn;
 
     @FXML
     void exitGameAct(ActionEvent event) {
@@ -147,10 +156,99 @@ public class GameEgyptController implements Initializable{
     }
     
     private int lastBtnClicked;
+    private Agents agent1, agent2;
+    private boolean isHuman;
 
     @FXML
     void stateBtnAction(MouseEvent event) {
     	myButtons.get(lastBtnClicked-1).setText(String.valueOf(Integer.parseInt(myButtons.get(lastBtnClicked-1).getText())+1));
+    }
+    
+    public void intiateData(Agents agent1, Agents agent2, boolean isHuman) {
+    	this.isHuman = isHuman;
+		if (!isHuman) {
+			endTurnBtn.setVisible(false);
+			attackLabel.setVisible(false);
+			attackBtn.setVisible(false);
+			addArmiesBtn.setVisible(false);
+			warningLabel.setVisible(false);
+			avArmiesTxtField.setVisible(false);
+			addArmiesField.setVisible(false);
+			startSimBtn.setVisible(true);
+			for(JFXButton button : myButtons) {
+				button.setDisable(true);
+			}
+		}
+		this.agent1 = agent1;
+		this.agent2 = agent2;
+	}
+    
+    @FXML
+    void startSimAct(ActionEvent event) {
+    	if (!isHuman) {
+    		Initial_Game g = new Initial_Game("Egypt");
+    	    Helper help = new Helper();
+    	    City[] cities = g.get_allCities();
+        	String color_turn = "Blue";
+    		String current_color = "Blue";
+    		int cost = 0;
+    		int quit = 0;
+    		boolean attacked1 = false;
+    		while (!help.test_goal(cities, current_color)) {
+    			attacked1 = false;
+    			if(cost > 100) {
+    				break;
+    			}
+    			if (color_turn == "Blue") {
+    				agent1.placing_armies(cities, g.getPlayer1(), help.calculate_bonus(cities,g.getPlayer1()));
+    				attacked1 = agent1.attack(cities, g.getPlayer1(), g.getPlayer2());
+    				if (!attacked1) {
+    					quit++;
+    				} else {
+    					quit = 0;
+    				}
+    				color_turn = g.getPlayer2().get_color();
+    				current_color = g.getPlayer1().get_color();
+    			} else {
+    				agent2.placing_armies(cities, g.getPlayer2(), help.calculate_bonus(cities,g.getPlayer2()));
+    				attacked1 = agent2.attack(cities, g.getPlayer2(), g.getPlayer1());
+    				if (!attacked1) {
+    					quit++;
+    				} else {
+    					quit = 0;
+    				}
+    				color_turn = g.getPlayer1().get_color();
+    				current_color = g.getPlayer2().get_color();
+    			}
+    			if (quit == 4) {
+    				break;
+    			}
+    			cost++;
+    			System.out.println("P"+current_color);
+    			for (int i = 0; i < cities.length; i++) {
+    				City c = cities[i];
+    				System.out.println("ID: " + c.get_id() + " Color: " + c.get_color() + " Armies: " + c.get_armies()
+    						+ " Neighbours: " + c.get_neighbours());
+    				myButtons.get(i).setText(String.valueOf(c.get_armies()));
+    				if (c.get_color().equals("Blue")) {
+    					myButtons.get(i).setStyle("-fx-background-color: #20B2AA");
+    				} else {
+    					myButtons.get(i).setStyle("-fx-background-color: #f08080");
+    				}
+    			}
+    		}
+    		if (!help.test_goal(cities, current_color)) {
+    			System.out.println("No one wins");
+    		} else {
+    			System.out.println("Player with color: " + current_color + " wins.");
+    		}
+    		for (int i = 0; i < cities.length; i++) {
+    			City c = cities[i];
+    			System.out.println("ID: " + c.get_id() + " Color: " + c.get_color() + " Armies: " + c.get_armies()
+    					+ " Neighbours: " + c.get_neighbours());
+    		}
+    	}
+    	
     }
 
 	@Override
@@ -210,9 +308,9 @@ public class GameEgyptController implements Initializable{
 		state26.setOnAction(e->lastBtnClicked = 26);
 		state27.setOnAction(e->lastBtnClicked = 27);
 		
-		for(JFXButton button : myButtons) {
-			button.setText("0");
-		}
+//		for(JFXButton button : myButtons) {
+//			button.setText("0");
+//		}
 		
 	}
 }

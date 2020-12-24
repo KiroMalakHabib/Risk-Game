@@ -13,6 +13,15 @@ public class Initial_Game {
 	City[] all_cities;
 	int size = 0;
 
+	
+	public Player getPlayer1() {
+		return p1;
+	}
+	
+	public Player getPlayer2() {
+		return p2;
+	}
+	
 	public Initial_Game(String country) {
 		if (country.equals("Egypt")) {
 			citiesCountry = citiesOfCountry.Egypt();
