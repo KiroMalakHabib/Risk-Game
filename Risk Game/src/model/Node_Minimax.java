@@ -1,26 +1,25 @@
 package model;
 
-import java.util.HashMap;
-import java.util.Map;
+import javafx.util.Pair;
 
 public class Node_Minimax {
 
-	private int heuristic;
-	private  City[] child = null;
+	private int utility;
+	private  Pair<City[],City[]> child = null;
 	
 	public Node_Minimax() {
 		
 	}
-	public void set_heueistic(int h) {
-		heuristic = h;
+	public void set_utility(int h) {
+		utility = h;
 	}
-	public void set_child(City[] c) {
+	public void set_child(Pair<City[],City[]> c) {
 		child = c;
 	}
-	public int get_heuristic() {
-		return heuristic;
+	public int get_utility() {
+		return utility;
 	}
-	public City[] get_child(){
+	public Pair<City[],City[]> get_child(){
 		return child;
 	}
 }
