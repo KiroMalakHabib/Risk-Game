@@ -444,6 +444,8 @@ public class GameUSAController implements Initializable{
 			warningLabel.setVisible(false);
 			avaiArmiesTxt.setVisible(false);
 			enterArmiesTxt.setVisible(false);
+			attackingArmies.setVisible(false);
+			avArmiesForAttack.setVisible(false);
 			startSimBtn.setVisible(true);
 			for(JFXButton button : myButtons) {
 				button.setDisable(true);

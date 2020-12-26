@@ -379,6 +379,8 @@ public class GameEgyptController implements Initializable{
 			warningLabel.setVisible(false);
 			avArmiesTxtField.setVisible(false);
 			addArmiesField.setVisible(false);
+			attackingArmies.setVisible(false);
+			avArmiesForAttack.setVisible(false);
 			startSimBtn.setVisible(true);
 			for(JFXButton button : myButtons) {
 				button.setDisable(true);
