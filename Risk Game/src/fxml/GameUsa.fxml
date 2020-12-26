@@ -299,7 +299,7 @@
                   </JFXButton>
                   <Label fx:id="attackLabel" layoutX="120.0" layoutY="46.0" prefHeight="17.0" prefWidth="351.0" text="Choose an opponent state." textFill="RED" visible="false">
                      <font>
-                        <Font size="14.0" />
+                        <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
                   <Label fx:id="warningLabel" layoutX="21.0" layoutY="74.0" text="Choose a state from your own to enable buttons." textFill="RED">

@@ -74,10 +74,18 @@ public class GreetingController implements Initializable{
     		AgentFactory af = new AgentFactory();
     		Agents Agent1 = af.get_agent(agentOneBox.getValue());
     		Agents Agent2 = af.get_agent(agentTwoBox.getValue());
-    		boolean isHuman = false;
-    		if (agentOneBox.getValue() == "Human agent" || agentTwoBox.getValue() =="Human agent") {
-    			isHuman = true;
+//    		boolean isHuman = false;
+    		boolean isHuman1 = false;
+    		boolean isHuman2 = false;
+    		if (agentOneBox.getValue() == "Human agent") {
+    			isHuman1 = true;
     		}
+    		if (agentTwoBox.getValue() =="Human agent") {
+    			isHuman2 = true;
+    		}
+//    		if (agentOneBox.getValue() == "Human agent" || agentTwoBox.getValue() =="Human agent") {
+//    			isHuman = true;
+//    		}
     		//open the Game.
 			try {
 				if (egyptBool) {
@@ -87,7 +95,7 @@ public class GreetingController implements Initializable{
 					Scene gameScene = new Scene(gameParent);
 					//access StoreController.
 					GameEgyptController controller = loader.getController();
-					controller.intiateData(Agent1, Agent2, isHuman);
+					controller.intiateData(Agent1, Agent2, isHuman1, isHuman2);
 					//this line gets the stage information.
 					Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
 					window.setScene(gameScene);
@@ -102,7 +110,7 @@ public class GreetingController implements Initializable{
 					Scene gameScene = new Scene(gameParent);
 					//access StoreController.
 					GameUSAController controller = loader.getController();
-					controller.intiateData(Agent1, Agent2, isHuman);
+					controller.intiateData(Agent1, Agent2, isHuman1, isHuman2);
 					//this line gets the stage information.
 					Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
 					window.setScene(gameScene);

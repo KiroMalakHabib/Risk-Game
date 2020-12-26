@@ -16,11 +16,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import model.City;
 import model.Helper;
 import model.Initial_Game;
 import model.agents.Agents;
+import model.agents.HumanAgent;
 
 public class GameUSAController implements Initializable{
 	ArrayList<JFXButton> myButtons = new ArrayList<JFXButton>();
@@ -201,22 +203,7 @@ public class GameUSAController implements Initializable{
     
     @FXML
     private JFXButton startSimBtn;
-
-    @FXML
-    void addArmiesAct(ActionEvent event) {
-
-    }
-
-    @FXML
-    void attackAct(ActionEvent event) {
-
-    }
-
-    @FXML
-    void endTurnAct(ActionEvent event) {
-
-    }
-
+    
     @FXML
     void exitGameAct(ActionEvent event) {
     	try {
@@ -237,18 +224,177 @@ public class GameUSAController implements Initializable{
 		}
     }
 	
-	private int lastBtnClicked;
+    private int lastBtnClicked = 0;
+    private int prevSelectedBtn;
     private Agents agent1, agent2;
-    private boolean isHuman;
+    private boolean isHuman1, isHuman2;
+    private int playerTurn = 0;
+    private Initial_Game g = new Initial_Game("USA");
+    private Helper helpH = new Helper();
+    private City[] citiesH = g.get_allCities();
+    private int avArmiesInt = 0;
+
+    @FXML
+    void addArmiesAct(ActionEvent event) {
+    	if (isInt(enterArmiesTxt.getText())) {
+    		int addedArmies = Integer.parseInt(enterArmiesTxt.getText());
+    		if (addedArmies > avArmiesInt) {// if added armies are more than bounce armies drop an error.
+    			warningLabel.setText("added armies is more than available armies");
+    		} else {// add armies are less than or equal bounce armies.
+    			warningLabel.setText("Choose a state from your own to enable buttons.");
+    			attackBtn.setDisable(true);
+    	    	addArmiesBtn.setDisable(true);
+    	    	enterArmiesTxt.setDisable(true);
+    	    	// add new armies
+    	    	if (playerTurn == 0) {
+    	    		// player 1 is human
+    	    		((HumanAgent) agent1).setCity(lastBtnClicked-1);
+    	    		agent1.placing_armies(citiesH, g.getPlayer1(), addedArmies);
+    	    		// decrease available armies
+    	    		avArmiesInt -= addedArmies;
+    	    		String available = "availble =  ";
+    	        	available += Integer.toString(avArmiesInt);
+    	        	avaiArmiesTxt.setText(available);
+    	    	} else {
+    	    		// player 2 is human
+    	    		((HumanAgent) agent2).setCity(lastBtnClicked-1);
+    	    		agent2.placing_armies(citiesH, g.getPlayer1(), addedArmies);
+    	    		// decrease available armies
+    	    		avArmiesInt -= addedArmies;
+    	    		String available = "availble =  ";
+    	        	available += Integer.toString(avArmiesInt);
+    	        	avaiArmiesTxt.setText(available);
+    	    	}
+    	    	//update map
+            	updateMap();
+            	enterArmiesTxt.setText("");
+    		}
+    	} else {
+    		warningLabel.setText("you should enter an integer.");
+    	}
+    	if (avArmiesInt == 0) {
+    		endTurnBtn.setDisable(false);
+    	}
+    }
+
+    @FXML
+    void attackAct(ActionEvent event) {
+    	// check previous button belongs to player turn color
+    	if (playerTurn == 0) {
+    		if (citiesH[prevSelectedBtn-1].get_color().equals("Blue") 
+    				&& citiesH[lastBtnClicked-1].get_color().equals("Red")) {
+    			if (citiesH[prevSelectedBtn-1].get_armies() - 1 > citiesH[lastBtnClicked-1].get_armies()) {
+    				if (citiesH[prevSelectedBtn-1].get_neighbours().contains(lastBtnClicked-1)) {
+    					((HumanAgent) agent1).setCity(prevSelectedBtn-1);
+    					((HumanAgent) agent1).setAttacked(lastBtnClicked-1);
+    					agent1.attack(citiesH,  g.getPlayer1(),  g.getPlayer2());
+    					warningLabel.setText("attacked successfully");
+    					
+    				} else {
+    					warningLabel.setText("the two cities are not neighbours");
+    				}
+    			} else {
+    				warningLabel.setText("your city has a leakage of armies");
+    			}
+    		} else {
+    			warningLabel.setText("the two cities belong to the same army");
+    		}
+    		disableCities("Red");
+        	attackBtn.setDisable(true);
+    	} else {
+    		if (citiesH[prevSelectedBtn-1].get_color().equals("Red") 
+    				&& citiesH[lastBtnClicked-1].get_color().equals("Blue")) {
+    			if (citiesH[prevSelectedBtn-1].get_armies() - 1 > citiesH[lastBtnClicked-1].get_armies()) {
+    				if (citiesH[prevSelectedBtn-1].get_neighbours().contains(lastBtnClicked-1)) {
+    					((HumanAgent) agent2).setCity(prevSelectedBtn-1);
+    					((HumanAgent) agent2).setAttacked(lastBtnClicked-1);
+    					agent2.attack(citiesH,  g.getPlayer2(),  g.getPlayer1());
+    					warningLabel.setText("attacked successfully");
+    				} else {
+    					warningLabel.setText("the two cities are not neighbours");
+    				}
+    			} else {
+    				warningLabel.setText("your city has a leakage of armies");
+    			}
+    		} else {
+    			warningLabel.setText("the two cities belong to the same army");
+    		}
+    		disableCities("Blue");
+        	attackBtn.setDisable(true);      	
+    	}
+    	updateMap();
+    	isGameEnded();
+    }
+
+    @FXML
+    void endTurnAct(ActionEvent event) {
+    	if (isGameEnded()) {
+    		gameEndedChanges();
+    	} else {
+    		playerTurn += 1;
+        	playerTurn %= 2;
+        	if (playerTurn == 0) {
+        		if (isHuman1) {
+        			humansPlay();
+        		} else {
+        			nonHumanPlay();
+        			System.out.println("non human next");
+        		}
+        	} else {
+        		if (isHuman2) {
+        			humansPlay();
+        		} else {
+        			nonHumanPlay();
+        			System.out.println("non human next");
+        		}
+        	}
+    	}
+    }
+
 	
 	@FXML
     void stateBtnAction(MouseEvent event) {
-		myButtons.get(lastBtnClicked-1).setText(String.valueOf(Integer.parseInt(myButtons.get(lastBtnClicked-1).getText())+1));
+		// if the player does not attack and re push another city of his own disable the other player cities
+    	if (playerTurn == 0) {
+    		disableCities("Red");
+    	} else {
+    		disableCities("Blue");
+    	}
+    	
+    	// if no armies to add disable add armies button.
+    	if (avArmiesInt == 0) {
+    		addArmiesBtn.setDisable(true);
+        	enterArmiesTxt.setDisable(true);
+        	if (playerTurn == 0) {
+        		enableCities("Red");
+        	} else {
+        		enableCities("Blue");
+        	}
+        	if ((citiesH[lastBtnClicked-1].get_color().equals("Blue") && playerTurn == 0) ||
+        			(citiesH[lastBtnClicked-1].get_color().equals("Red") && playerTurn == 1)) {
+        		warningLabel.setText("Choose opponent near city to attack");
+        		enableCities("Blue");
+        		enableCities("Red");
+        	} else {
+        		attackBtn.setDisable(false);
+        		warningLabel.setText("Press on attack button");
+        	}
+        	
+    	} else {
+    		addArmiesBtn.setDisable(false);
+        	enterArmiesTxt.setDisable(false);
+        	String available = "availble =  ";
+        	available += Integer.toString(avArmiesInt);
+        	avaiArmiesTxt.setText(available);
+    	}
     }
 
-	public void intiateData(Agents agent1, Agents agent2, boolean isHuman) {
-		this.isHuman = isHuman;
-		if (!isHuman) {
+	public void intiateData(Agents agent1, Agents agent2, boolean isHuman1, boolean isHuman2) {
+		this.isHuman1 = isHuman1;
+    	this.isHuman2 = isHuman2;
+    	this.agent1 = agent1;
+		this.agent2 = agent2;
+		if (!isHuman1 && !isHuman2) {
 			endTurnBtn.setVisible(false);
 			attackLabel.setVisible(false);
 			attackBtn.setVisible(false);
@@ -260,14 +406,16 @@ public class GameUSAController implements Initializable{
 			for(JFXButton button : myButtons) {
 				button.setDisable(true);
 			}
+		} else if (!isHuman1 && isHuman2){
+			nonHumanPlay();
+		} else {
+			humansPlay();
 		}
-		this.agent1 = agent1;
-		this.agent2 = agent2;
 	}
 	
 	@FXML
     void startSimAct(ActionEvent event) {
-		if (!isHuman) {
+		if (!isHuman1 && !isHuman2) {
 			Initial_Game g = new Initial_Game("USA");
 		    Helper help = new Helper();
 		    City[] cities = g.get_allCities();
@@ -282,7 +430,7 @@ public class GameUSAController implements Initializable{
     				break;
     			}
     			if (color_turn == "Blue") {
-    				agent1.placing_armies(cities, g.getPlayer1(), help.calculate_bonus(cities,g.getPlayer1()));
+    				agent1.placing_armies(cities, g.getPlayer1(), help.calculate_bonus(citiesH, g.getPlayer1()));
     				attacked1 = agent1.attack(cities, g.getPlayer1(), g.getPlayer2());
     				if (!attacked1) {
     					quit++;
@@ -292,7 +440,7 @@ public class GameUSAController implements Initializable{
     				color_turn = g.getPlayer2().get_color();
     				current_color = g.getPlayer1().get_color();
     			} else {
-    				agent2.placing_armies(cities, g.getPlayer2(), help.calculate_bonus(cities,g.getPlayer2()));
+    				agent2.placing_armies(cities, g.getPlayer2(), help.calculate_bonus(citiesH, g.getPlayer2()));
     				attacked1 = agent2.attack(cities, g.getPlayer2(), g.getPlayer1());
     				if (!attacked1) {
     					quit++;
@@ -332,6 +480,7 @@ public class GameUSAController implements Initializable{
     	}
     }
 	
+	// initialize controller
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		myButtons.add(state01);
@@ -384,60 +533,250 @@ public class GameUSAController implements Initializable{
 		myButtons.add(state48);
 		myButtons.add(state49);
 		myButtons.add(state50);
-		state01.setOnAction(e->lastBtnClicked = 1);
-		state02.setOnAction(e->lastBtnClicked = 2);
-		state03.setOnAction(e->lastBtnClicked = 3);
-		state04.setOnAction(e->lastBtnClicked = 4);
-		state05.setOnAction(e->lastBtnClicked = 5);
-		state06.setOnAction(e->lastBtnClicked = 6);
-		state07.setOnAction(e->lastBtnClicked = 7);
-		state08.setOnAction(e->lastBtnClicked = 8);
-		state09.setOnAction(e->lastBtnClicked = 9);
-		state10.setOnAction(e->lastBtnClicked = 10);
-		state11.setOnAction(e->lastBtnClicked = 11);
-		state12.setOnAction(e->lastBtnClicked = 12);
-		state13.setOnAction(e->lastBtnClicked = 13);
-		state14.setOnAction(e->lastBtnClicked = 14);
-		state15.setOnAction(e->lastBtnClicked = 15);
-		state16.setOnAction(e->lastBtnClicked = 16);
-		state17.setOnAction(e->lastBtnClicked = 17);
-		state18.setOnAction(e->lastBtnClicked = 18);
-		state19.setOnAction(e->lastBtnClicked = 19);
-		state20.setOnAction(e->lastBtnClicked = 20);
-		state21.setOnAction(e->lastBtnClicked = 21);
-		state22.setOnAction(e->lastBtnClicked = 22);
-		state23.setOnAction(e->lastBtnClicked = 23);
-		state24.setOnAction(e->lastBtnClicked = 24);
-		state25.setOnAction(e->lastBtnClicked = 25);
-		state26.setOnAction(e->lastBtnClicked = 26);
-		state27.setOnAction(e->lastBtnClicked = 27);
-		state28.setOnAction(e->lastBtnClicked = 28);
-		state29.setOnAction(e->lastBtnClicked = 29);
-		state30.setOnAction(e->lastBtnClicked = 30);
-		state31.setOnAction(e->lastBtnClicked = 31);
-		state32.setOnAction(e->lastBtnClicked = 32);
-		state33.setOnAction(e->lastBtnClicked = 33);
-		state34.setOnAction(e->lastBtnClicked = 34);
-		state35.setOnAction(e->lastBtnClicked = 35);
-		state36.setOnAction(e->lastBtnClicked = 36);
-		state37.setOnAction(e->lastBtnClicked = 37);
-		state38.setOnAction(e->lastBtnClicked = 38);
-		state39.setOnAction(e->lastBtnClicked = 39);
-		state40.setOnAction(e->lastBtnClicked = 40);
-		state41.setOnAction(e->lastBtnClicked = 41);
-		state42.setOnAction(e->lastBtnClicked = 42);
-		state43.setOnAction(e->lastBtnClicked = 43);
-		state44.setOnAction(e->lastBtnClicked = 44);
-		state45.setOnAction(e->lastBtnClicked = 45);
-		state46.setOnAction(e->lastBtnClicked = 46);
-		state47.setOnAction(e->lastBtnClicked = 47);
-		state48.setOnAction(e->lastBtnClicked = 48);
-		state49.setOnAction(e->lastBtnClicked = 49);
-		state50.setOnAction(e->lastBtnClicked = 50);
-		for(JFXButton button : myButtons) {
-			button.setText("0");
+		state01.setOnAction(e->{prevSelectedBtn = lastBtnClicked;lastBtnClicked = 1;});
+		state02.setOnAction(e->{prevSelectedBtn = lastBtnClicked;lastBtnClicked = 2;});
+		state03.setOnAction(e->{prevSelectedBtn = lastBtnClicked;lastBtnClicked = 3;});
+		state04.setOnAction(e->{prevSelectedBtn = lastBtnClicked;lastBtnClicked = 4;});
+		state05.setOnAction(e->{prevSelectedBtn = lastBtnClicked;lastBtnClicked = 5;});
+		state06.setOnAction(e->{prevSelectedBtn = lastBtnClicked;lastBtnClicked = 6;});
+		state07.setOnAction(e->{prevSelectedBtn = lastBtnClicked;lastBtnClicked = 7;});
+		state08.setOnAction(e->{prevSelectedBtn = lastBtnClicked;lastBtnClicked = 8;});
+		state09.setOnAction(e->{prevSelectedBtn = lastBtnClicked;lastBtnClicked = 9;});
+		state10.setOnAction(e->{prevSelectedBtn = lastBtnClicked;lastBtnClicked = 10;});
+		state11.setOnAction(e->{prevSelectedBtn = lastBtnClicked;lastBtnClicked = 11;});
+		state12.setOnAction(e->{prevSelectedBtn = lastBtnClicked;lastBtnClicked = 12;});
+		state13.setOnAction(e->{prevSelectedBtn = lastBtnClicked;lastBtnClicked = 13;});
+		state14.setOnAction(e->{prevSelectedBtn = lastBtnClicked;lastBtnClicked = 14;});
+		state15.setOnAction(e->{prevSelectedBtn = lastBtnClicked;lastBtnClicked = 15;});
+		state16.setOnAction(e->{prevSelectedBtn = lastBtnClicked;lastBtnClicked = 16;});
+		state17.setOnAction(e->{prevSelectedBtn = lastBtnClicked;lastBtnClicked = 17;});
+		state18.setOnAction(e->{prevSelectedBtn = lastBtnClicked;lastBtnClicked = 18;});
+		state19.setOnAction(e->{prevSelectedBtn = lastBtnClicked;lastBtnClicked = 19;});
+		state20.setOnAction(e->{prevSelectedBtn = lastBtnClicked;lastBtnClicked = 20;});
+		state21.setOnAction(e->{prevSelectedBtn = lastBtnClicked;lastBtnClicked = 21;});
+		state22.setOnAction(e->{prevSelectedBtn = lastBtnClicked;lastBtnClicked = 22;});
+		state23.setOnAction(e->{prevSelectedBtn = lastBtnClicked;lastBtnClicked = 23;});
+		state24.setOnAction(e->{prevSelectedBtn = lastBtnClicked;lastBtnClicked = 24;});
+		state25.setOnAction(e->{prevSelectedBtn = lastBtnClicked;lastBtnClicked = 25;});
+		state26.setOnAction(e->{prevSelectedBtn = lastBtnClicked;lastBtnClicked = 26;});
+		state27.setOnAction(e->{prevSelectedBtn = lastBtnClicked;lastBtnClicked = 27;});
+		state28.setOnAction(e->{prevSelectedBtn = lastBtnClicked;lastBtnClicked = 28;});
+		state29.setOnAction(e->{prevSelectedBtn = lastBtnClicked;lastBtnClicked = 29;});
+		state30.setOnAction(e->{prevSelectedBtn = lastBtnClicked;lastBtnClicked = 30;});
+		state31.setOnAction(e->{prevSelectedBtn = lastBtnClicked;lastBtnClicked = 31;});
+		state32.setOnAction(e->{prevSelectedBtn = lastBtnClicked;lastBtnClicked = 32;});
+		state33.setOnAction(e->{prevSelectedBtn = lastBtnClicked;lastBtnClicked = 33;});
+		state34.setOnAction(e->{prevSelectedBtn = lastBtnClicked;lastBtnClicked = 34;});
+		state35.setOnAction(e->{prevSelectedBtn = lastBtnClicked;lastBtnClicked = 35;});
+		state36.setOnAction(e->{prevSelectedBtn = lastBtnClicked;lastBtnClicked = 36;});
+		state37.setOnAction(e->{prevSelectedBtn = lastBtnClicked;lastBtnClicked = 37;});
+		state38.setOnAction(e->{prevSelectedBtn = lastBtnClicked;lastBtnClicked = 38;});
+		state39.setOnAction(e->{prevSelectedBtn = lastBtnClicked;lastBtnClicked = 39;});
+		state40.setOnAction(e->{prevSelectedBtn = lastBtnClicked;lastBtnClicked = 40;});
+		state41.setOnAction(e->{prevSelectedBtn = lastBtnClicked;lastBtnClicked = 41;});
+		state42.setOnAction(e->{prevSelectedBtn = lastBtnClicked;lastBtnClicked = 42;});
+		state43.setOnAction(e->{prevSelectedBtn = lastBtnClicked;lastBtnClicked = 43;});
+		state44.setOnAction(e->{prevSelectedBtn = lastBtnClicked;lastBtnClicked = 44;});
+		state45.setOnAction(e->{prevSelectedBtn = lastBtnClicked;lastBtnClicked = 45;});
+		state46.setOnAction(e->{prevSelectedBtn = lastBtnClicked;lastBtnClicked = 46;});
+		state47.setOnAction(e->{prevSelectedBtn = lastBtnClicked;lastBtnClicked = 47;});
+		state48.setOnAction(e->{prevSelectedBtn = lastBtnClicked;lastBtnClicked = 48;});
+		state49.setOnAction(e->{prevSelectedBtn = lastBtnClicked;lastBtnClicked = 49;});
+		state50.setOnAction(e->{prevSelectedBtn = lastBtnClicked;lastBtnClicked = 50;});		
+	}
+	
+	// check if a string is an integer or not
+		private static boolean isInt(String strNum) {
+		    if (strNum == null) {
+		        return false;
+		    }
+		    try {
+		        Integer.parseInt(strNum);
+		    } catch (NumberFormatException nfe) {
+		        return false;
+		    }
+		    return true;
 		}
 		
-	}
+
+		// function to update map and visualize new cities assignment
+		private void updateMap() {
+			for (int i = 0; i < citiesH.length; i++) {
+				City c = citiesH[i];
+				System.out.println("ID: " + c.get_id() + " Color: " + c.get_color() + " Armies: " + c.get_armies()
+						+ " Neighbours: " + c.get_neighbours());
+				myButtons.get(i).setText(String.valueOf(c.get_armies()));
+				if (c.get_color().equals("Blue")) {
+					myButtons.get(i).setStyle("-fx-background-color: #20B2AA");
+				} else {
+					myButtons.get(i).setStyle("-fx-background-color: #f08080");
+				}
+			}
+		}
+		
+		// function to disable cities with specific color
+		private void disableCities(String theColor) {
+			for(int i = 0; i < citiesH.length; i++) {
+				City c = citiesH[i];
+				if (c.get_color().equals(theColor)) {
+					myButtons.get(i).setDisable(true);
+				}
+			}
+		}
+		
+		// function to enable cities with specific color
+		private void enableCities(String theColor) {
+			for(int i = 0; i < citiesH.length; i++) {
+				City c = citiesH[i];
+				if (c.get_color().equals(theColor)) {
+					myButtons.get(i).setDisable(false);
+				}
+			}
+		}
+		
+		
+		// do changes to buttons and fields if a winner is declared.
+		private void gameEndedChanges() {
+	    	addArmiesBtn.setVisible(false);
+			attackBtn.setVisible(false);
+			avaiArmiesTxt.setVisible(false);
+			enterArmiesTxt.setVisible(false);
+			warningLabel.setVisible(false);
+			endTurnBtn.setVisible(false);
+			attackLabel.setVisible(true);
+			disableCities("Blue");
+			disableCities("Red");
+			if (playerTurn == 0) {
+				attackLabel.setText("Blue player is the WINNER");
+				attackLabel.setTextFill(Color.web("#20B2AA"));
+			} else {
+				attackLabel.setText("Red player is the WINNER");
+				attackLabel.setTextFill(Color.web("#f08080"));
+			}
+	    }
+		
+		// check if the game is finished
+	    private boolean isGameEnded() {
+	    	System.out.println(playerTurn);
+	    	if (helpH.test_goal(citiesH, "Blue")) {
+	    		playerTurn = 0;
+	    		return helpH.test_goal(citiesH, "Blue");
+	    	} else if (helpH.test_goal(citiesH, "Red")) {
+	    		playerTurn = 1;
+	    		return helpH.test_goal(citiesH, "Red");
+	    	}
+	    	return false;
+	    }
+	    
+	 // used to fill the map before the first turn
+	    private boolean firstTurn  = true;
+	    
+	    //non human agent turn in case of human agent presence.
+	    private void nonHumanPlay() {
+	    	isGameEnded();
+			if(isHuman2) {
+				System.out.println("non human agent 1");
+				// non human agent is Blue colored
+				// place bonus armies
+				agent1.placing_armies(citiesH, g.getPlayer1(), helpH.calculate_bonus(citiesH, g.getPlayer1()));
+				// attack if possible
+				agent1.attack(citiesH, g.getPlayer1(), g.getPlayer2());
+				playerTurn = 1;
+			} else if (isHuman1) {
+				System.out.println("non human agent 2");
+				// non human agent is Red colored
+				// place bonus armies
+				agent2.placing_armies(citiesH, g.getPlayer2(), helpH.calculate_bonus(citiesH, g.getPlayer2()));
+				// attack if possible
+				agent2.attack(citiesH, g.getPlayer2(), g.getPlayer1());
+				playerTurn = 0;
+			}
+	    	updateMap();
+	    	if (isGameEnded()) {
+	    		gameEndedChanges();
+	    	} else {
+	    		humansPlay();
+	    	}
+	    }
+	    
+	    // human agent turn
+	    private void humansPlay() {
+	    	isGameEnded();
+	    	warningLabel.setText("Choose a state from your own to enable buttons.");
+	    	if (firstTurn) {
+	    		updateMap();
+	    		firstTurn = false;
+	    	}
+			if ((!isHuman1 && isHuman2) || (isHuman1 && !isHuman2)) {
+				// only one agent is a human agent
+	    		System.out.println("Here 1 human");
+	    		if(isHuman1) {
+	    			// agent 1 is human & agent 2 is not human
+	    			// enable my cities
+	    			enableCities("Blue");
+	    			// disable other player cities
+	    			disableCities("Red");
+	    			//calculate bounce armies
+	    			avArmiesInt = helpH.calculate_bonus(citiesH, g.getPlayer1());
+	    			//show bounce armies
+	    			String available = "availble =  ";
+	            	available += Integer.toString(avArmiesInt);
+	            	avaiArmiesTxt.setText(available);
+	    			// allow to choose a city of your own
+	    			// human place armies using addArmiesBtn
+	    			// human should place all available armies
+	    			// human may attack opponent
+	    			
+	    		} else if (isHuman2) {
+	    			// agent 1 is not human & agent 2 is human
+	    			// enable my cities
+	    			enableCities("Red");
+	    			// disable other player cities
+	    			disableCities("Blue");
+	    			//calculate bounce armies
+	    			avArmiesInt = helpH.calculate_bonus(citiesH, g.getPlayer2());
+	    			//show bounce armies
+	    			String available = "availble =  ";
+	            	available += Integer.toString(avArmiesInt);
+	            	avaiArmiesTxt.setText(available);
+	    			// allow to choose a city of your own
+	    			// human place armies using addArmiesBtn
+	    			// human should place all available armies
+	    			// human may attack opponent
+	    		}
+	    	} else {
+	    		// agent 1 is human & agent 2 is human
+	    		System.out.println("Here 2 humans");
+	    		if (playerTurn == 0) {
+	    			// enable my cities
+	    			enableCities("Blue");
+	    			// disable other player cities
+	    			disableCities("Red");
+	    			//calculate bounce armies
+	    			avArmiesInt = helpH.calculate_bonus(citiesH, g.getPlayer1());
+	    			//show bounce armies
+	    			String available = "availble =  ";
+	            	available += Integer.toString(avArmiesInt);
+	            	avaiArmiesTxt.setText(available);
+	    			// allow to choose a city of your own
+	    			// human place armies using addArmiesBtn
+	    			// human should place all available armies
+	    		} else {
+	    			// enable my cities
+	    			enableCities("Red");
+	    			// disable other player cities
+	    			disableCities("Blue");
+	    			//calculate bounce armies
+	    			avArmiesInt = helpH.calculate_bonus(citiesH, g.getPlayer2());
+	    			//show bounce armies
+	    			String available = "availble =  ";
+	            	available += Integer.toString(avArmiesInt);
+	            	avaiArmiesTxt.setText(available);
+	    			// allow to choose a city of your own
+	    			// human place armies using addArmiesBtn
+	    			// human should place all available armies
+	    		}
+	    	}
+	    }
 
 }

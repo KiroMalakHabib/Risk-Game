@@ -5,7 +5,7 @@ import model.agents.Agents;
 import model.agents.AggressiveAgent;
 import model.agents.GreedyAgent;
 import model.agents.HumanAgent;
-import model.agents.MinimaxAgent;
+import model.agents.MinmaxAgent;
 import model.agents.PacifistAgent;
 import model.agents.PassiveAgent;
 import model.agents.RTAStarAgent;
@@ -37,7 +37,7 @@ public class AgentFactory {
 			agent = new RTAStarAgent();
 			break;
 		case "Minimax agent":
-			agent = new MinimaxAgent();
+			agent = new MinmaxAgent();
 			break;
 		default:
 			agent = new PassiveAgent();
