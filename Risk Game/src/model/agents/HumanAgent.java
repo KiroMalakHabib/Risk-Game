@@ -7,6 +7,7 @@ public class HumanAgent implements Agents{
 	
 	private int selectedCity;
 	private int attackedCity;
+	private int numOfAttackingArmies;
 
 	@Override
 	public void placing_armies(City[] all_cities, Player p, int bonus_armies) {
@@ -16,12 +17,11 @@ public class HumanAgent implements Agents{
 
 	@Override
 	public boolean attack(City[] all_cities, Player p1, Player p2) {
-		int attackingArmies = all_cities[selectedCity].get_armies() - 1;
 		p2.set_armies(p2.get_armies() - all_cities[attackedCity].get_armies());
 		p2.get_cities().remove((Integer) attackedCity);
 		all_cities[attackedCity].set_color(p1.get_color());
-		all_cities[attackedCity].set_armies(attackingArmies);
-		all_cities[selectedCity].set_armies(1);
+		all_cities[attackedCity].set_armies(numOfAttackingArmies);
+		all_cities[selectedCity].set_armies(all_cities[selectedCity].get_armies() - numOfAttackingArmies);
 		p1.get_cities().add(attackedCity);
 		
 		return true;
@@ -31,7 +31,8 @@ public class HumanAgent implements Agents{
 		selectedCity = selected;
 	}
 	
-	public void setAttacked(int selected) {
+	public void setAttacked(int selected, int attckingArmies) {
 		attackedCity = selected;
+		numOfAttackingArmies = attckingArmies;
 	}
 }

@@ -205,6 +205,12 @@ public class GameUSAController implements Initializable{
     private JFXButton startSimBtn;
     
     @FXML
+    private JFXTextField attackingArmies;
+
+    @FXML
+    private JFXTextField avArmiesForAttack;
+    
+    @FXML
     void exitGameAct(ActionEvent event) {
     	try {
 			FXMLLoader loader = new FXMLLoader();
@@ -243,6 +249,9 @@ public class GameUSAController implements Initializable{
     		} else {// add armies are less than or equal bounce armies.
     			warningLabel.setText("Choose a state from your own to enable buttons.");
     			attackBtn.setDisable(true);
+    			attackingArmies.setDisable(true);
+    			attackingArmies.setText("");
+    			avArmiesForAttack.setText("");
     	    	addArmiesBtn.setDisable(true);
     	    	enterArmiesTxt.setDisable(true);
     	    	// add new armies
@@ -285,11 +294,23 @@ public class GameUSAController implements Initializable{
     				&& citiesH[lastBtnClicked-1].get_color().equals("Red")) {
     			if (citiesH[prevSelectedBtn-1].get_armies() - 1 > citiesH[lastBtnClicked-1].get_armies()) {
     				if (citiesH[prevSelectedBtn-1].get_neighbours().contains(lastBtnClicked-1)) {
-    					((HumanAgent) agent1).setCity(prevSelectedBtn-1);
-    					((HumanAgent) agent1).setAttacked(lastBtnClicked-1);
-    					agent1.attack(citiesH,  g.getPlayer1(),  g.getPlayer2());
-    					warningLabel.setText("attacked successfully");
-    					
+    					if (isInt(attackingArmies.getText()) && !attackingArmies.getText().trim().equals("")) {
+    						int armies = Integer.parseInt(attackingArmies.getText());
+    						if (armies > citiesH[lastBtnClicked-1].get_armies()) {
+    							((HumanAgent) agent1).setCity(prevSelectedBtn-1);
+    	    					((HumanAgent) agent1).setAttacked(lastBtnClicked-1, armies);
+    	    					agent1.attack(citiesH,  g.getPlayer1(),  g.getPlayer2());
+    	    					warningLabel.setText("attacked successfully");
+    						} else {
+    							System.out.println();
+    							System.out.println(citiesH[lastBtnClicked-1].get_armies());
+    							System.out.println(armies);
+    							System.out.println();
+    							warningLabel.setText("Attacking arrmies should be appropriate");
+    						}
+    					} else {
+    						warningLabel.setText("Attacking arrmies is an integer");
+    					}
     				} else {
     					warningLabel.setText("the two cities are not neighbours");
     				}
@@ -301,15 +322,31 @@ public class GameUSAController implements Initializable{
     		}
     		disableCities("Red");
         	attackBtn.setDisable(true);
+        	attackingArmies.setDisable(true);
+        	attackingArmies.setText("");
+			avArmiesForAttack.setText("");
     	} else {
     		if (citiesH[prevSelectedBtn-1].get_color().equals("Red") 
     				&& citiesH[lastBtnClicked-1].get_color().equals("Blue")) {
     			if (citiesH[prevSelectedBtn-1].get_armies() - 1 > citiesH[lastBtnClicked-1].get_armies()) {
     				if (citiesH[prevSelectedBtn-1].get_neighbours().contains(lastBtnClicked-1)) {
-    					((HumanAgent) agent2).setCity(prevSelectedBtn-1);
-    					((HumanAgent) agent2).setAttacked(lastBtnClicked-1);
-    					agent2.attack(citiesH,  g.getPlayer2(),  g.getPlayer1());
-    					warningLabel.setText("attacked successfully");
+    					if (isInt(attackingArmies.getText()) && !attackingArmies.getText().trim().equals("")) {
+    						int armies = Integer.parseInt(attackingArmies.getText());
+    						if (armies > citiesH[lastBtnClicked-1].get_armies()) {
+    							((HumanAgent) agent2).setCity(prevSelectedBtn-1);
+    	    					((HumanAgent) agent2).setAttacked(lastBtnClicked-1, armies);
+    	    					agent2.attack(citiesH,  g.getPlayer2(),  g.getPlayer1());
+    	    					warningLabel.setText("attacked successfully");
+    						} else {
+    							warningLabel.setText("Attacking arrmies should be appropriate");
+    							System.out.println();
+    							System.out.println(citiesH[lastBtnClicked-1].get_armies());
+    							System.out.println(armies);
+    							System.out.println();
+    						}
+    					} else {
+    						warningLabel.setText("Attacking arrmies is an integer");
+    					}
     				} else {
     					warningLabel.setText("the two cities are not neighbours");
     				}
@@ -320,7 +357,10 @@ public class GameUSAController implements Initializable{
     			warningLabel.setText("the two cities belong to the same army");
     		}
     		disableCities("Blue");
-        	attackBtn.setDisable(true);      	
+        	attackBtn.setDisable(true);   
+        	attackingArmies.setDisable(true);
+        	attackingArmies.setText("");
+			avArmiesForAttack.setText("");
     	}
     	updateMap();
     	isGameEnded();
@@ -364,7 +404,7 @@ public class GameUSAController implements Initializable{
     	// if no armies to add disable add armies button.
     	if (avArmiesInt == 0) {
     		addArmiesBtn.setDisable(true);
-        	enterArmiesTxt.setDisable(true);
+    		enterArmiesTxt.setDisable(true);
         	if (playerTurn == 0) {
         		enableCities("Red");
         	} else {
@@ -377,6 +417,8 @@ public class GameUSAController implements Initializable{
         		enableCities("Red");
         	} else {
         		attackBtn.setDisable(false);
+        		attackingArmies.setDisable(false);
+        		avArmiesForAttack.setText(Integer.toString(citiesH[prevSelectedBtn-1].get_armies() - 1));
         		warningLabel.setText("Press on attack button");
         	}
         	

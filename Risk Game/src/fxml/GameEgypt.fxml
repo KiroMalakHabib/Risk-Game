@@ -208,6 +208,8 @@
                      <font>
                         <Font size="16.0" />
                      </font></JFXButton>
+                  <JFXTextField fx:id="attackingArmies" disable="true" layoutX="107.0" layoutY="33.0" prefHeight="25.0" prefWidth="146.0" promptText="Attacking Armies" />
+                  <JFXTextField fx:id="avArmiesForAttack" disable="true" layoutX="269.0" layoutY="33.0" prefHeight="25.0" prefWidth="118.0" promptText="Available armies" />
                </children>
             </AnchorPane>
          </bottom>
