@@ -29,12 +29,12 @@ public class Data {
 		egypt.add(new ArrayList<Integer>(Arrays.asList(7,16)));
 		egypt.add(new ArrayList<Integer>(Arrays.asList(13,14,15,19,22)));
 		egypt.add(new ArrayList<Integer>(Arrays.asList(13,18,20,21,22)));
-		egypt.add(new ArrayList<Integer>(Arrays.asList(0,13,19,21,23,24,26)));
+		egypt.add(new ArrayList<Integer>(Arrays.asList(0,13,19,21,23,24,25,26)));
 		egypt.add(new ArrayList<Integer>(Arrays.asList(19,20,22,23)));
 		egypt.add(new ArrayList<Integer>(Arrays.asList(15,16,18,19,21,23,24,26)));
 		egypt.add(new ArrayList<Integer>(Arrays.asList(20,21,22,24)));
 		egypt.add(new ArrayList<Integer>(Arrays.asList(20,22,23,25,26)));
-		egypt.add(new ArrayList<Integer>(Arrays.asList(24)));
+		egypt.add(new ArrayList<Integer>(Arrays.asList(24,20)));
 		egypt.add(new ArrayList<Integer>(Arrays.asList(20,22)));
 		return egypt;
 	}

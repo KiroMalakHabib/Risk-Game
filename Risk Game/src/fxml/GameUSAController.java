@@ -685,6 +685,8 @@ public class GameUSAController implements Initializable{
 			enterArmiesTxt.setVisible(false);
 			warningLabel.setVisible(false);
 			endTurnBtn.setVisible(false);
+			attackingArmies.setVisible(false);
+			avArmiesForAttack.setVisible(false);
 			attackLabel.setVisible(true);
 			disableCities("Blue");
 			disableCities("Red");
