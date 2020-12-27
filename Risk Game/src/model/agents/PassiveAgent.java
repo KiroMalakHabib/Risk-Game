@@ -7,7 +7,7 @@ import model.Player;
 
 public class PassiveAgent implements Agents {
 
-	public void placing_armies(City[] all_cities, Player p, int bonus_armies) {
+	public void placing_armies(City[] all_cities, Player p, Player P1,int bonus_armies) {
 		ArrayList<Integer> citiesOfPlayer = p.get_cities();
 		City min_city = new City();
 		int min_armies = 1000000;
