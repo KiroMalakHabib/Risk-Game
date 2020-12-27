@@ -28,7 +28,7 @@ public class test {
 				break;
 			}
 			if (color_turn == "Blue") {
-				g1.placing_armies(cities, g.p1, help.calculate_bonus(cities,g.p1));
+				g1.placing_armies(cities, g.p1,g.p2, help.calculate_bonus(cities,g.p1));
 				attacked1 = g1.attack(cities, g.p1, g.p2);
 				if (!attacked1) {
 					quit++;
@@ -38,7 +38,7 @@ public class test {
 				color_turn = g.p2.get_color();
 				current_color = g.p1.get_color();
 			} else {
-				g2.placing_armies(cities, g.p2, help.calculate_bonus(cities,g.p2));
+				g2.placing_armies(cities, g.p2,g.p1, help.calculate_bonus(cities,g.p2));
 				attacked1 = g2.attack(cities, g.p2, g.p1);
 				if (!attacked1) {
 					quit++;
