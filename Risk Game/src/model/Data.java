@@ -31,11 +31,11 @@ public class Data {
 		egypt.add(new ArrayList<Integer>(Arrays.asList(13,18,20,21,22)));
 		egypt.add(new ArrayList<Integer>(Arrays.asList(0,13,19,21,23,24,25,26)));
 		egypt.add(new ArrayList<Integer>(Arrays.asList(19,20,22,23)));
-		egypt.add(new ArrayList<Integer>(Arrays.asList(15,16,18,19,21,23,24,26)));
+		egypt.add(new ArrayList<Integer>(Arrays.asList(15,16,18,19,21,23,24,25,26)));
 		egypt.add(new ArrayList<Integer>(Arrays.asList(20,21,22,24)));
-		egypt.add(new ArrayList<Integer>(Arrays.asList(20,22,23,25,26)));
-		egypt.add(new ArrayList<Integer>(Arrays.asList(24,20)));
-		egypt.add(new ArrayList<Integer>(Arrays.asList(20,22)));
+		egypt.add(new ArrayList<Integer>(Arrays.asList(20,22,23,25)));
+		egypt.add(new ArrayList<Integer>(Arrays.asList(24,20,22,26)));
+		egypt.add(new ArrayList<Integer>(Arrays.asList(20,25,22)));
 		return egypt;
 	}
 
@@ -74,9 +74,9 @@ public class Data {
 		USA.add(new ArrayList<Integer>(Arrays.asList(19,20,22,23,25,27,28,31)));
 		USA.add(new ArrayList<Integer>(Arrays.asList(19,30,28,29,36,34,32)));
 		USA.add(new ArrayList<Integer>(Arrays.asList(18,19,31,34,33)));
-		USA.add(new ArrayList<Integer>(Arrays.asList(17,18,32,35)));
+		USA.add(new ArrayList<Integer>(Arrays.asList(17,18,32)));
 		USA.add(new ArrayList<Integer>(Arrays.asList(32,31,36,35)));
-		USA.add(new ArrayList<Integer>(Arrays.asList(34,36,33)));
+		USA.add(new ArrayList<Integer>(Arrays.asList(34,36)));
 		USA.add(new ArrayList<Integer>(Arrays.asList(35,34,31,29,37)));
 		USA.add(new ArrayList<Integer>(Arrays.asList(36,29,47,46,45,38)));
 		USA.add(new ArrayList<Integer>(Arrays.asList(37,45,44,42,39)));
