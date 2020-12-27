@@ -20,35 +20,34 @@ public class GreedyAgent implements Agents {
 	static City[] child_city;
 	static PriorityQueue<Pair<Integer, City[]>> frontier = new PriorityQueue<Pair<Integer, City[]>>(
 			Comparator.comparing(Pair::getKey));
-	static Set<City[]> explored = new HashSet<City[]>();
+	static Set<Pair<Integer, City[]>> explored = new HashSet<Pair<Integer, City[]>>();
 	static Pair<Integer, City[]> check_pair;
 	static City[] last_statePlacing;
 	static HashMap<City[], Integer> hashmap = new HashMap<City[], Integer>();
 	HashMap<City[], Integer> attacked = new HashMap<City[], Integer>();
 	PriorityQueue<Pair<Integer, City[]>> frontier_attacked = new PriorityQueue<Pair<Integer, City[]>>(
 			Comparator.comparing(Pair::getKey));
-	boolean flag = false;
 
 	@Override
-	public void placing_armies(City[] all_cities, Player p, int bonus_armies) {
+	public void placing_armies(City[] all_cities, Player p,Player p2, int bonus_armies) {
 		// TODO Auto-generated method stub
 		hashmap.clear();
 		frontier.clear();
+		explored.clear();
 		last_statePlacing = new City[all_cities.length];
 		Pair<Integer, City[]> initial_state = new Pair<Integer, City[]>(0, all_cities);
 		frontier.add(initial_state);
-		if(!flag && p.get_color().equals("Blue")) {
-			hashmap.put(all_cities, 1);
-		}else {
-			hashmap.put(all_cities, 0);
-		}
-		System.out.println("bonus->"+bonus_armies);
-		flag = true;
+		hashmap.put(all_cities, 0);
 		while (!frontier.isEmpty()) {
 			Pair<Integer, City[]> current_state = frontier.poll();
 			City[] state = current_state.getValue();
-			explored.add(state);
 			int number = hashmap.get(state);
+			
+			if(is_explored(current_state)) {
+				continue;
+			}
+			explored.add(current_state);
+			
 			if (number == bonus_armies) {
 				last_statePlacing = state;
 				break;
@@ -58,16 +57,17 @@ public class GreedyAgent implements Agents {
 				City[] child = my_children.get(i);
 				int heuristic_child = help.calculate_heuristsic(child, p);
 				Pair<Integer, City[]> pair_child = new Pair<Integer, City[]>(heuristic_child, child);
-				if (!check_stateInExplored(child) && !check_stateInFrontier(child)) {
-					frontier.add(pair_child);
-					hashmap.put(child, number+1);
-				} else if (check_stateInFrontier(child)) {
+				if (check_stateInFrontier(child)) {
 					if (check_pair.getKey() > heuristic_child) {
 						Pair<Integer, City[]> old_pair = new Pair<Integer, City[]>(check_pair.getKey(), child);
 						frontier.remove(old_pair);
 						frontier.add(pair_child);
 						hashmap.put(child, number+1);
 					}
+				}
+				else {
+					frontier.add(pair_child);
+					hashmap.put(child, number+1);
 				}
 			}
 			hashmap.remove(state);
@@ -115,9 +115,11 @@ public class GreedyAgent implements Agents {
 		return true;
 	}
 
-	private boolean check_stateInExplored(City[] child) {
-		for (City[] visited : explored) {
-			if (Arrays.deepEquals(child, visited)) {
+	private boolean is_explored(Pair<Integer, City[]> state) {
+		for (Pair<Integer, City[]> c : explored) {
+			City[] cities = c.getValue();
+			int f = c.getKey();
+			if (Arrays.deepEquals(cities, state.getValue()) && f== state.getKey()) {
 				return true;
 			}
 		}
