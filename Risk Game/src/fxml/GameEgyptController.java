@@ -231,7 +231,7 @@ public class GameEgyptController implements Initializable{
     	    	if (playerTurn == 0) {
     	    		// player 1 is human
     	    		((HumanAgent) agent1).setCity(lastBtnClicked-1);
-    	    		agent1.placing_armies(citiesH, g.getPlayer1(), addedArmies);
+    	    		agent1.placing_armies(citiesH, g.getPlayer1(), g.getPlayer2(), addedArmies);
     	    		// decrease available armies
     	    		avArmiesInt -= addedArmies;
     	    		String available = "availble =  ";
@@ -240,7 +240,10 @@ public class GameEgyptController implements Initializable{
     	    	} else {
     	    		// player 2 is human
     	    		((HumanAgent) agent2).setCity(lastBtnClicked-1);
-    	    		agent2.placing_armies(citiesH, g.getPlayer1(), addedArmies);
+    	    		/*
+    	    		 * needs a check
+    	    		 */
+    	    		agent2.placing_armies(citiesH, g.getPlayer2(), g.getPlayer1(), addedArmies);
     	    		// decrease available armies
     	    		avArmiesInt -= addedArmies;
     	    		String available = "availble =  ";
@@ -409,7 +412,7 @@ public class GameEgyptController implements Initializable{
 				break;
 			}
 			if (color_turn == "Blue") {
-				agent1.placing_armies(cities, g.getPlayer1(), help.calculate_bonus(citiesH, g.getPlayer1()));
+				agent1.placing_armies(cities, g.getPlayer1(), g.getPlayer2(), help.calculate_bonus(citiesH, g.getPlayer1()));
 				attacked1 = agent1.attack(cities, g.getPlayer1(), g.getPlayer2());
 				if (!attacked1) {
 					quit++;
@@ -419,7 +422,7 @@ public class GameEgyptController implements Initializable{
 				color_turn = g.getPlayer2().get_color();
 				current_color = g.getPlayer1().get_color();
 			} else {
-				agent2.placing_armies(cities, g.getPlayer2(), help.calculate_bonus(citiesH, g.getPlayer2()));
+				agent2.placing_armies(cities, g.getPlayer2(), g.getPlayer1(), help.calculate_bonus(citiesH, g.getPlayer2()));
 				attacked1 = agent2.attack(cities, g.getPlayer2(), g.getPlayer1());
 				if (!attacked1) {
 					quit++;
@@ -616,7 +619,7 @@ public class GameEgyptController implements Initializable{
 			System.out.println("non human agent 1");
 			// non human agent is Blue colored
 			// place bonus armies
-			agent1.placing_armies(citiesH, g.getPlayer1(), helpH.calculate_bonus(citiesH, g.getPlayer1()));
+			agent1.placing_armies(citiesH, g.getPlayer1(), g.getPlayer2(), helpH.calculate_bonus(citiesH, g.getPlayer1()));
 			// attack if possible
 			agent1.attack(citiesH, g.getPlayer1(), g.getPlayer2());
 			playerTurn = 1;
@@ -624,7 +627,7 @@ public class GameEgyptController implements Initializable{
 			System.out.println("non human agent 2");
 			// non human agent is Red colored
 			// place bonus armies
-			agent2.placing_armies(citiesH, g.getPlayer2(), helpH.calculate_bonus(citiesH, g.getPlayer2()));
+			agent2.placing_armies(citiesH, g.getPlayer2(), g.getPlayer1(), helpH.calculate_bonus(citiesH, g.getPlayer2()));
 			// attack if possible
 			agent2.attack(citiesH, g.getPlayer2(), g.getPlayer1());
 			playerTurn = 0;

@@ -8,9 +8,9 @@ public class HumanAgent implements Agents{
 	private int selectedCity;
 	private int attackedCity;
 	private int numOfAttackingArmies;
-
+	
 	@Override
-	public void placing_armies(City[] all_cities, Player p, int bonus_armies) {
+	public void placing_armies(City[] all_cities, Player p, Player p2, int bonus_armies) {
 		all_cities[selectedCity].set_armies(all_cities[selectedCity].get_armies() + bonus_armies);
 		p.set_armies(p.get_armies() + bonus_armies);
 	}
@@ -35,4 +35,5 @@ public class HumanAgent implements Agents{
 		attackedCity = selected;
 		numOfAttackingArmies = attckingArmies;
 	}
+
 }
