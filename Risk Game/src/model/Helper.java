@@ -10,21 +10,32 @@ public class Helper {
 		int numOfCities = 0;
 		for (int i = 0; i < all_cities.length; i++) {
 			if (all_cities[i].get_color().equals(p.get_color())) {
-				numOfCities += all_cities[i].get_armies();
+				numOfCities ++;
 			}
 		}
 		return Math.max(3, numOfCities / 3);
 	}
-
-	public boolean test_goal(City[] cities, String color) {
-		for (int i = 0; i < cities.length; i++) {
-			if (!(cities[i].get_color().equals(color))) {
-				return false;
+	
+	public int calculate_cost(City[] all_cities, Player p) {
+		int weakCities = 0;
+		for (int i = 0; i < all_cities.length; i++) {
+			City city = all_cities[i];
+			boolean is_weak = false;
+			if (city.get_color().equals(p.get_color())) {
+				ArrayList<Integer> my_neighbours = city.get_neighbours();
+				for(int j=0; j<my_neighbours.size();j++) {
+					City city_neighbour = all_cities[my_neighbours.get(j)];
+					if(!(city_neighbour.get_color().equals(city.get_color())) && !(city_neighbour.get_armies() < city.get_armies() - 1)){
+						is_weak = true;
+					}
+				}
+			}
+			if(is_weak) {
+				weakCities++;
 			}
 		}
-		return true;
+		return weakCities;
 	}
-	
 	public boolean test_loss(City[] cities, String color) {
 		for (int i = 0; i < cities.length; i++) {
 			if ((cities[i].get_color().equals(color))) {
@@ -33,6 +44,15 @@ public class Helper {
 		}
 		return true;
 	}
+	public boolean test_goal(City[] cities, String color) {
+		for (int i = 0; i < cities.length; i++) {
+			if (!(cities[i].get_color().equals(color))) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 	public int calculate_heuristsic(City[] all_cities, Player p) {
 		int heuristic = 0;
 		int armies_p1 = 0;
@@ -54,12 +74,9 @@ public class Helper {
 				}
 			}
 		}
-		float division = armies_p2 / armies_p1;
-		heuristic = (int) Math.ceil(division);
-		if(armies_p2 < armies_p1 && armies_p2 != 0) {
-			heuristic += 1;
-		}
-		heuristic += count_neededArmies;
+		//float division = (float)armies_p2 / armies_p1;
+		//heuristic = (int) Math.ceil(division);
+		heuristic = armies_p2 + count_neededArmies;
 		return heuristic;
 	}
 
@@ -128,12 +145,19 @@ public class Helper {
 
 	public void update_player(City[] all_cities, Player p1) {
 		int armiesOfPlayer1 = 0;
+		for (int i = 0; i < all_cities.length; i++) {
+			if (all_cities[i].get_color().equals(p1.get_color())) {
+				armiesOfPlayer1 += all_cities[i].get_armies();
+			}
+		}
+			p1.set_armies(armiesOfPlayer1);
+		}
+		/*int armiesOfPlayer1 = 0;
 		for (int i = 0; i < p1.get_cities().size(); i++) {
 			City city = all_cities[p1.get_cities().get(i)];
 			armiesOfPlayer1 += city.get_armies();
 		}
-		p1.set_armies(armiesOfPlayer1);
-	}
+		p1.set_armies(armiesOfPlayer1);*/
 
 	public City[] clone_array(City[] city) {
 		City[] copy = new City[city.length];
@@ -150,14 +174,14 @@ public class Helper {
 
 	public void update_allCities(City[] old, City[] new_city) {
 		for (int i = 0; i < new_city.length; i++) {
-			City city = new City();
-			city.set_armies(new_city[i].get_armies());
-			city.set_color(new_city[i].get_color());
-			city.set_id(new_city[i].get_id());
-			city.set_neighbours(new_city[i].get_neighbours());
+			//City city = new City();
+			//city.set_armies(new_city[i].get_armies());
+			//city.set_color(new_city[i].get_color());
+			//city.set_id(new_city[i].get_id());
+			//city.set_neighbours(new_city[i].get_neighbours());
 			old[i].set_armies(new_city[i].get_armies());
 			old[i].set_color(new_city[i].get_color());
-			old[i].set_id(new_city[i].get_id());
+			//old[i].set_id(new_city[i].get_id());
 			old[i].set_neighbours(new_city[i].get_neighbours());
 		}
 	}
